@@ -203,4 +203,15 @@ public class SImage {
     public void show() {
         SImageIO.show(this);
     }
+
+    /**
+     * 画像をコピーする。
+     *
+     * @return コピーした画像
+     */
+    public SImage copy() {
+        var image = new SImage(width, height, channel);
+        image.pixels = pixels.clone();
+        return image;
+    }
 }
