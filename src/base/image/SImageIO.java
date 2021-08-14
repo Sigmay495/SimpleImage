@@ -28,7 +28,7 @@ public class SImageIO {
             case 1:
                 for (int y = 0; y < image.height(); y++)
                     for (int x = 0; x < image.width(); x++)
-                        image.setInt(x, y, bi.getRGB(x, y) & 0xff);
+                        image.setGray(x, y, bi.getRGB(x, y) & 0xff);
                 break;
             case 3:
                 for (int y = 0; y < image.height(); y++)
@@ -67,7 +67,7 @@ public class SImageIO {
             case 1:
                 for (int y = 0; y < image.height(); y++)
                     for (int x = 0; x < image.width(); x++) {
-                        int value = image.getInt(x, y);
+                        int value = image.getGray(x, y);
                         bi.setRGB(x, y, 255 << 24 | value << 16 | value << 8 | value);
                     }
                 break;
@@ -112,7 +112,7 @@ public class SImageIO {
      * @return 読み込んだSImage
      */
     public static SImage read(String fileName, int channel) {
-        if (channel == 1 || channel == 3 || channel == 4)
+        if (channel != 1 && channel != 3 && channel != 4)
             throw new ImageIOException("チャネル数は1または3、4でなければなりません: " + channel);
         return readBufferedImage(fileName, channel);
     }

@@ -32,7 +32,7 @@ public class SImage {
         if (height <= 0)
             throw new ImageIOException("画像高さは1以上でなければなりません: " + height);
         this.height = height;
-        if (channel == 1 || channel == 3 || channel == 4)
+        if (channel != 1 && channel != 3 && channel != 4)
             throw new ImageIOException("チャネル数は1または3、4でなければなりません: " + channel);
         this.channel = channel;
         pixels = new int[width * height * channel];
@@ -86,7 +86,7 @@ public class SImage {
      * @param y yインデックス
      * @return 画素値
      */
-    public int getInt(int x, int y) {
+    public int getGray(int x, int y) {
         if (channel != 1)
             throw new ImageIOException("このメソッドは1チャネル専用です: " + channel);
         return pixels[y * width + x];
@@ -127,7 +127,7 @@ public class SImage {
      * @param y     yインデックス
      * @param value 画素値
      */
-    public void setInt(int x, int y, int value) {
+    public void setGray(int x, int y, int value) {
         if (channel != 1)
             throw new ImageIOException("このメソッドは1チャネル専用です: " + channel);
         pixels[y * width + x] = value;
@@ -143,7 +143,7 @@ public class SImage {
     public void setRGB(int x, int y, int[] rgb) {
         if (channel != 3)
             throw new ImageIOException("このメソッドは3チャネル専用です: " + channel);
-        if (rgb.length != 2)
+        if (rgb.length != 3)
             throw new ImageIOException("RGB配列のサイズが異常です: " + rgb.length);
         int i = (y * width + x) * channel;
         pixels[i] = rgb[0];
@@ -161,7 +161,7 @@ public class SImage {
     public void setARGB(int x, int y, int[] argb) {
         if (channel != 4)
             throw new ImageIOException("このメソッドは4チャネル専用です: " + channel);
-        if (argb.length != 2)
+        if (argb.length != 4)
             throw new ImageIOException("ARGB配列のサイズが異常です: " + argb.length);
         int i = (y * width + x) * channel;
         pixels[i] = argb[0];
