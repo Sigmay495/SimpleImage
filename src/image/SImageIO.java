@@ -26,13 +26,13 @@ public class SImageIO {
         var image = new SImage(bi.getWidth(), bi.getHeight(), channel);
         switch (channel) {
             case 1:
-                for (int y = 0; y < image.height; y++)
-                    for (int x = 0; x < image.width; x++)
+                for (int y = 0; y < image.height(); y++)
+                    for (int x = 0; x < image.width(); x++)
                         image.setInt(x, y, bi.getRGB(x, y) & 0xff);
                 break;
             case 3:
-                for (int y = 0; y < image.height; y++)
-                    for (int x = 0; x < image.width; x++) {
+                for (int y = 0; y < image.height(); y++)
+                    for (int x = 0; x < image.width(); x++) {
                         int pixel = bi.getRGB(x, y);
                         int red = pixel >> 16 & 0xff;
                         int green = pixel >> 8 & 0xff;
@@ -41,8 +41,8 @@ public class SImageIO {
                     }
                 break;
             case 4:
-                for (int y = 0; y < image.height; y++)
-                    for (int x = 0; x < image.width; x++) {
+                for (int y = 0; y < image.height(); y++)
+                    for (int x = 0; x < image.width(); x++) {
                         int pixel = bi.getRGB(x, y);
                         int alpha = pixel >> 24 & 0xff;
                         int red = pixel >> 16 & 0xff;
@@ -62,25 +62,25 @@ public class SImageIO {
      * @return 変換後のBufferedImage
      */
     private static BufferedImage toBufferedImage(SImage image) {
-        var bi = new BufferedImage(image.width, image.height, BufferedImage.TYPE_INT_ARGB);
+        var bi = new BufferedImage(image.width(), image.height(), BufferedImage.TYPE_INT_ARGB);
         switch (image.channel) {
             case 1:
-                for (int y = 0; y < image.height; y++)
-                    for (int x = 0; x < image.width; x++) {
+                for (int y = 0; y < image.height(); y++)
+                    for (int x = 0; x < image.width(); x++) {
                         int value = image.getInt(x, y);
                         bi.setRGB(x, y, 255 << 24 | value << 16 | value << 8 | value);
                     }
                 break;
             case 3:
-                for (int y = 0; y < image.height; y++)
-                    for (int x = 0; x < image.width; x++) {
+                for (int y = 0; y < image.height(); y++)
+                    for (int x = 0; x < image.width(); x++) {
                         int[] rgb = image.getRGB(x, y);
                         bi.setRGB(x, y, 255 << 24 | rgb[0] << 16 | rgb[1] << 8 | rgb[2]);
                     }
                 break;
             case 4:
-                for (int y = 0; y < image.height; y++)
-                    for (int x = 0; x < image.width; x++) {
+                for (int y = 0; y < image.height(); y++)
+                    for (int x = 0; x < image.width(); x++) {
                         int[] argb = image.getARGB(x, y);
                         bi.setRGB(x, y, argb[0] << 24 | argb[1] << 16 | argb[2] << 8 | argb[3]);
                     }

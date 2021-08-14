@@ -12,11 +12,11 @@ public class SImage {
     /**
      * 幅
      */
-    public int width;
+    private int width;
     /**
      * 高さ
      */
-    public int height;
+    private int height;
     /**
      * チャネル数
      */
@@ -172,6 +172,24 @@ public class SImage {
         pixels[i + 1] = argb[1];
         pixels[i + 2] = argb[2];
         pixels[i + 3] = argb[3];
+    }
+
+    /**
+     * 画像の幅を取得する。
+     *
+     * @return 画像幅
+     */
+    public int width() {
+        return width;
+    }
+
+    /**
+     * 画像の高さを取得する。
+     *
+     * @return 画像高さ
+     */
+    public int height() {
+        return height;
     }
 
     /**
