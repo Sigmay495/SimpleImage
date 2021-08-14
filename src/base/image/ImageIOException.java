@@ -1,4 +1,4 @@
-package image;
+package base.image;
 
 public class ImageIOException extends RuntimeException {
 
